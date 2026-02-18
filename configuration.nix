@@ -2,6 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# My NixOs Config
+
 { config, pkgs, lib, ... }:
 
 let
@@ -41,6 +43,9 @@ in
     };
     programs.fish = {
       enable = true;
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+      '';
       shellAliases = {
         ll = "ls -l";
         gs = "git status";
@@ -52,7 +57,6 @@ in
     };
 
   };
-
 
   # Bootloader.
   boot.loader.grub = {
@@ -123,11 +127,13 @@ in
   };
 
 
+  users.groups.yomi = { };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.yomi = {
     isNormalUser = true;
     description = "NixOS";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "yomi"];
     packages = with pkgs; [
       tree-sitter
     ];
