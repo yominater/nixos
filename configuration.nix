@@ -169,6 +169,7 @@ in
     tmux
     fastfetch
     git
+    libnotify
   ];
 
   programs.git = {
