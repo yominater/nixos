@@ -37,6 +37,7 @@ in
     home.file.".config/nvim/init.lua".source = "${myNvimRepo}/init.lua";
 
     programs.tmux = {
+      enable = true;
       extraConfig = ''
         set -g mouse on
       '';
@@ -49,9 +50,11 @@ in
       shellAliases = {
         ll = "ls -l";
         gs = "git status";
+        safe-rebuild = "/hom/yomi/Scripts/nixos-rebuild.sh";
       };
     };
     programs.git = {
+      enable = true;
       settings.user.email = "alexandertrains4@gmail.com";
       settings.user.name = "yominater";
     };
