@@ -35,9 +35,11 @@ in
     };
 
     home.file.".config/nvim/init.lua".source = "${myNvimRepo}/init.lua";
+    home.file.".config/waybar/config.jsonc".source = "/etc/nixos/waybar/config.jsonc";
+    home.file.".config/waybar/style.css".source = "/etc/nixos/waybar/style.css";
     wayland.windowManager.hyprland = {
       enable = true;
-      extraConfig = builtins.readFile ./hyprland.conf;
+      extraConfig = builtins.readFile ./config/hyprland.conf;
       settings = {
         input = {
         kb_layout = "us";
@@ -68,7 +70,9 @@ in
       settings.user.email = "alexandertrains4@gmail.com";
       settings.user.name = "yominater";
     };
-    programs.waybar.enable = true;
+    programs.waybar = {
+    	enable = true;
+	};
 
   };
 
@@ -192,6 +196,9 @@ in
       safe.directory = "/etc/nixos";
     };
   };
+    programs.waybar = {
+      enable = true;
+    };
 
 
   # Some programs need SUID wrappers, can be configured further or are
