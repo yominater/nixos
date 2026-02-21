@@ -182,6 +182,10 @@ in
     };
   };
 
+  programs.hyprland = {
+    enable = true;
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -208,6 +212,10 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
+
+  # Set core usage
+  nix.settings.max-jobs = 1;
+  nix.settings.cores = 3;
 
   # Automatic Garbage Collection
   nix.gc = {
