@@ -50,7 +50,7 @@ in
       shellAliases = {
         ll = "ls -l";
         gs = "git status";
-        safe-rebuild = "/hom/yomi/Scripts/nixos-rebuild.sh";
+        safe-rebuild = "/home/yomi/Scripts/nixos-rebuild.sh";
       };
     };
     programs.git = {
