@@ -202,6 +202,8 @@ in
     git
     libnotify
     hyprsunset
+    ubuntu-sans
+    ubuntu-sans-mono
   ];
 
   programs.git = {
