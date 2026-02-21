@@ -188,6 +188,8 @@ in
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.hack
+    ubuntu-sans
+    ubuntu-sans-mono
   ];
 
   # List packages installed in system profile. To search, run:
@@ -203,8 +205,6 @@ in
     git
     libnotify
     hyprsunset
-    ubuntu-sans
-    ubuntu-sans-mono
     foot
   ];
 
@@ -214,7 +214,6 @@ in
       safe.directory = "/etc/nixos";
     };
   };
-  
 
 
   # Some programs need SUID wrappers, can be configured further or are
