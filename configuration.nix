@@ -45,9 +45,10 @@ in
     home.file.".config/nvim/init.lua".source = "${myNvimRepo}/init.lua";
     home.file.".config/waybar/config.jsonc".source = "/etc/nixos/waybar/config.jsonc";
     home.file.".config/waybar/style.css".source = "/etc/nixos/waybar/style.css";
+    home.file.".config/foot/foot.ini".source = "/etc/nixos/foot/foot.ini";
     wayland.windowManager.hyprland = {
       enable = true;
-      extraConfig = builtins.readFile ./config/hyprland.conf;
+      extraConfig = builtins.readFile ./hypr/hyprland.conf;
       settings = {
         input = {
         kb_layout = "us";
@@ -204,6 +205,7 @@ in
     hyprsunset
     ubuntu-sans
     ubuntu-sans-mono
+    foot
   ];
 
   programs.git = {
