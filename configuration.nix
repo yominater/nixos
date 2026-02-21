@@ -206,6 +206,32 @@ in
     libnotify
     hyprsunset
     foot
+    # import from Yomibok
+    alsa-utils
+    amd-ucodegen
+    baobab
+    bc
+    bluez-tools
+    brightnessctl
+    cpio
+    dmenu
+    eza
+    fd
+    feh
+    fuse2
+    fwupd
+    hyprlock
+    inetutils
+    luarocks
+    mako
+    mpv
+    pavucontrol
+    radeontop
+    ranger
+    rofi
+    sof-firmware
+    tlp
+    wl-clipboard
   ];
 
   programs.git = {
