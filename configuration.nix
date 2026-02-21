@@ -138,6 +138,18 @@ in
     options = "caps:escape_shifted_capslock";
   };
 
+  services.keyd = {
+  enable = true;
+
+  keyboards.default = {
+    settings = {
+      main = {
+        leftmeta = "esc";
+      };
+    };
+  };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
