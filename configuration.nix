@@ -35,6 +35,7 @@ in
     };
 
     home.file.".config/nvim/init.lua".source = "${myNvimRepo}/init.lua";
+    home.file.".config/hypr/hyprland.conf".source = "/etc/nixos/hyprland.conf";
 
     programs.tmux = {
       enable = true;
@@ -181,6 +182,7 @@ in
       safe.directory = "/etc/nixos";
     };
   };
+  programs.hyprland.enable = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
