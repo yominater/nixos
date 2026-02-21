@@ -205,9 +205,6 @@ in
       safe.directory = "/etc/nixos";
     };
   };
-  programs.waybar = {
-      enable = true;
-  };
   
 
 
