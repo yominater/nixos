@@ -38,6 +38,12 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = builtins.readFile ./hyprland.conf;
+      settings = {
+        input = {
+        kb_layout = "us";
+        kb_options = "caps:escape_shifted_capslock";
+    };
+  };
     };
 
     programs.tmux = {
@@ -101,11 +107,11 @@ in
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Enable the Cinnamon Desktop Environment.
   services.xserver.displayManager.lightdm.enable = false;
-  services.xserver.desktopManager.cinnamon.enable = true;
+  services.xserver.desktopManager.cinnamon.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -213,6 +219,8 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
+
+  environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
 
   # Set core usage
   nix.settings.max-jobs = 1;
