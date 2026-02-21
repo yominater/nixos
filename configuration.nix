@@ -111,7 +111,7 @@ in
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-    options = caps:escape_shifted_capslock;
+    options = "caps:escape_shifted_capslock";
   };
 
   # Enable CUPS to print documents.
