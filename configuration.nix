@@ -183,6 +183,11 @@ in
     libffi
   ];
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.hack
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
