@@ -344,5 +344,6 @@ in
     options = "--delete-older-than 16d";
 
   };
+  nix.settings.auto-optimise-store = true;
 }
 
