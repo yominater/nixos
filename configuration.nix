@@ -286,6 +286,7 @@ in
     sof-firmware
     tlp
     wl-clipboard
+    obsidian
   ];
 
   programs.git = {
