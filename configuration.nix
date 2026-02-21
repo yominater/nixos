@@ -68,6 +68,7 @@ in
       settings.user.email = "alexandertrains4@gmail.com";
       settings.user.name = "yominater";
     };
+    programs.waybar.enable = true;
 
   };
 
