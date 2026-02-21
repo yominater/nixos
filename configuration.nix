@@ -15,7 +15,6 @@ let
     sha256 = "sha256-a+jK0JN+aQzgC58A50oB8EVMlx2ujBY7/0DAalyV718=";
   };
 in
-
 {
   imports =
     [ # Include the results of the hardware scan.
