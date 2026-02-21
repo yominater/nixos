@@ -168,6 +168,14 @@ in
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC="performance";
+      CPU_SCALING_GOVERNOR_ON_bat="powersave";
+
+    };
+  };
 
 
   users.groups.yomi = { };
