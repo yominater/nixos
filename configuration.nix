@@ -27,6 +27,14 @@ in
   home-manager.useUserPackages = true;
 
   home-manager.users.yomi = { pkgs, ... }: {
+    home.pointerCursor = {
+    gtk.enable = true;
+    # x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 16;
+  };
+
     home.stateVersion = "25.11";
     home.packages = [ pkgs.atool pkgs.httpie ];
     home.sessionVariables = {
@@ -188,6 +196,7 @@ in
     fastfetch
     git
     libnotify
+    hyprsunset
   ];
 
   programs.git = {
@@ -196,9 +205,10 @@ in
       safe.directory = "/etc/nixos";
     };
   };
-    programs.waybar = {
+  programs.waybar = {
       enable = true;
-    };
+  };
+  
 
 
   # Some programs need SUID wrappers, can be configured further or are
