@@ -88,6 +88,21 @@ in
 	};
 
   };
+  home-manager.users.root = { pkgs, ... }: {
+      home.stateVersion = "25.11";
+    home.packages = [ pkgs.atool pkgs.httpie ];
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      PAGER = "less -FirSwX";
+    };
+
+    home.file.".config/nvim" = {
+      source = myNvimRepo;
+      recursive = true;
+    };
+
+  };
+
 
   # Bootloader.
   boot.loader.grub = {
