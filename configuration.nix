@@ -40,9 +40,13 @@ in
     };
     programs.git = {
       enable = true;
-      config.user.email = "alexandertrains4@gmail.com";
-      config.user.name = "yominater";
+      config = {
+        user.email = "alexandertrains4@gmail.com";
+        user.name = "yominater";
+        safe.directory = "/etc/nixos";
+      };
     };
+
 
   # Bootloader.
   boot.loader.grub = {
@@ -186,8 +190,6 @@ in
     tmux
     fastfetch
     libnotify
-    hyprsunset
-    foot
     # import from Yomibok
     alsa-utils
     amd-ucodegen
@@ -196,13 +198,11 @@ in
     bluez-tools
     brightnessctl
     cpio
-    dmenu
     eza
     fd
     feh
     fuse2
     fwupd
-    hyprlock
     inetutils
     luarocks
     mako
@@ -269,5 +269,6 @@ in
 
   };
   nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = "nix-command flakes"; # for home-manager flake
 }
 
