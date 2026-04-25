@@ -8,12 +8,6 @@
 
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
-  myNvimRepo = pkgs.fetchFromGitHub {
-    owner = "yominater";
-    repo  = "nvim";
-    rev   = "870ba3c8d3b0e4e2f9e63d8cf3608f5b12e54db5";
-    sha256 = "sha256-a+jK0JN+aQzgC58A50oB8EVMlx2ujBY7/0DAalyV718=";
-  };
 in
 {
   imports =
@@ -26,40 +20,6 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
-  home-manager.users.yomi = { pkgs, ... }: {
-    home.pointerCursor = {
-    gtk.enable = true;
-    # x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
-  };
-
-    home.stateVersion = "25.11";
-    home.packages = [ pkgs.atool pkgs.httpie ];
-    home.sessionVariables = {
-      EDITOR = "nvim";
-      PAGER = "less -FirSwX";
-    };
-
-    home.file.".config/nvim" = {
-      source = myNvimRepo;
-      recursive = true;
-    };
-
-    home.file.".config/waybar/config.jsonc".source = "/etc/nixos/waybar/config.jsonc";
-    home.file.".config/waybar/style.css".source = "/etc/nixos/waybar/style.css";
-    home.file.".config/foot/foot.ini".source = "/etc/nixos/foot/foot.ini";
-    wayland.windowManager.hyprland = {
-      enable = true;
-      extraConfig = builtins.readFile ./hypr/hyprland.conf;
-      settings = {
-        input = {
-        kb_layout = "us";
-        kb_options = "caps:escape_shifted_capslock";
-    };
-  };
-    };
 
     programs.tmux = {
       enable = true;
@@ -80,29 +40,9 @@ in
     };
     programs.git = {
       enable = true;
-      settings.user.email = "alexandertrains4@gmail.com";
-      settings.user.name = "yominater";
+      config.user.email = "alexandertrains4@gmail.com";
+      config.user.name = "yominater";
     };
-    programs.waybar = {
-    	enable = true;
-	};
-
-  };
-  home-manager.users.root = { pkgs, ... }: {
-      home.stateVersion = "25.11";
-    home.packages = [ pkgs.atool pkgs.httpie ];
-    home.sessionVariables = {
-      EDITOR = "nvim";
-      PAGER = "less -FirSwX";
-    };
-
-    home.file.".config/nvim" = {
-      source = myNvimRepo;
-      recursive = true;
-    };
-
-  };
-
 
   # Bootloader.
   boot.loader.grub = {
@@ -138,13 +78,6 @@ in
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = false;
-
-  # Enable the Cinnamon Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = false;
-  services.xserver.desktopManager.cinnamon.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -224,10 +157,6 @@ in
 
   # Install firefox.
   programs.firefox.enable = true;
-  programs.fish.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -256,7 +185,6 @@ in
     wget
     tmux
     fastfetch
-    git
     libnotify
     hyprsunset
     foot
@@ -284,17 +212,13 @@ in
     ranger
     rofi
     sof-firmware
-    tlp
     wl-clipboard
     obsidian
   ];
 
-  programs.git = {
-    enable = true;
-    config = {
-      safe.directory = "/etc/nixos";
-    };
-  };
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -340,8 +264,8 @@ in
   # Automatic Garbage Collection
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 16d";
+    dates = "daily";
+    options = "--delete-older-than 1d";
 
   };
   nix.settings.auto-optimise-store = true;
