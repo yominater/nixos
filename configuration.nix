@@ -49,11 +49,8 @@ in
 
 
   # Bootloader.
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/vda";
-    useOSProber = true;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -143,6 +140,7 @@ in
       STOP_CHARGE_THRESH_BAT0="80";
     };
   };
+  services.logind.settings.Login.HandlePowerKey = "ignore";
 
 
   users.groups.yomi = { };
@@ -246,6 +244,7 @@ in
   enable = true;
   enable32Bit = true;
   };
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
