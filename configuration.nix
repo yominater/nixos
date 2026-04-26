@@ -118,29 +118,6 @@ in
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  services.tlp = {
-    enable = false;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC="performance";
-      CPU_SCALING_GOVERNOR_ON_BAT="powersave";
-      CPU_ENERGY_PERF_POLICY_ON_AC="performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT="power";
-
-      CPU_SCALING_MIN_FREQ_ON_BAT="1400000";
-      CPU_SCALING_MAX_FREQ_ON_BAT="1600000";
-      CPU_SCALING_MIN_FREQ_ON_AC="1600000";
-      CPU_SCALING_MAX_FREQ_ON_AC="1400000";
-      TLP_DEFAULT_MODE="bat";
-      
-      CPU_BOOST_ON_AC="1";
-      CPU_BOOST_ON_BAT="0";
-
-      PLATFORM_PROFILE_ON_AC="performance";
-      PLATFORM_PROFILE_ON_BAT="low-power";
-      START_CHARGE_THRESH_BAT0="50";
-      STOP_CHARGE_THRESH_BAT0="80";
-    };
-  };
   services.logind.settings.Login.HandlePowerKey = "ignore";
 
 
@@ -213,6 +190,7 @@ in
     sof-firmware
     wl-clipboard
     obsidian
+    ungoogled-chromium
   ];
 
   # Allow unfree packages
@@ -233,6 +211,8 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.upower.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
