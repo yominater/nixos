@@ -13,6 +13,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./power-save.nix
       (import "${home-manager}/nixos")
     ];
   # The state version is required and should stay at the version you
