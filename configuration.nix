@@ -47,6 +47,10 @@ in
         safe.directory = "/etc/nixos";
       };
     };
+    programs.steam = {
+      enable = true;
+      localNetworkGameTransfers.openFirewall = true;
+    };
 
 
   # Bootloader.
