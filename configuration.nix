@@ -36,6 +36,7 @@ in
         ll = "ls -l";
         gs = "git status";
         safe-rebuild = "/home/yomi/Scripts/nixos-rebuild.sh";
+        safe-home-manager = "/home/yomi/Scripts/home-manager-rebuild.sh";
       };
     };
     programs.git = {
