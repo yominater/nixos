@@ -21,7 +21,7 @@
   };
 
   services = {
-    tlp.enable = true;
+    tlp.enable = false;
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
       ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
