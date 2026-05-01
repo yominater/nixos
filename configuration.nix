@@ -253,8 +253,9 @@ in
   # Automatic Garbage Collection
   nix.gc = {
     automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 1d";
+    dates = "weekly";
+    options = "--delete-older-than 1w";
+    persistent = true;
 
   };
   nix.settings.auto-optimise-store = true;
