@@ -171,7 +171,6 @@ in
     btop
     wget
     tmux
-    fastfetch
     libnotify
     # import from Yomibok
     alsa-utils
