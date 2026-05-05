@@ -49,8 +49,8 @@ in
       };
     };
     programs.steam = {
-      enable = true;
-      localNetworkGameTransfers.openFirewall = true;
+      enable = false;
+      localNetworkGameTransfers.openFirewall = false;
     };
 
 
