@@ -125,7 +125,10 @@ in
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  services.logind.settings.Login.HandlePowerKey = "ignore";
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleLidSwitch = "suspend";
+  };
 
 
   users.groups.yomi = { };
