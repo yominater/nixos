@@ -200,7 +200,6 @@ in
     wl-clipboard
     obsidian
     ungoogled-chromium
-    tailscale
   ];
 
   # Allow unfree packages
@@ -212,6 +211,9 @@ in
   services.openssh.enable = true;
 
   services.upower.enable = true;
+  services = {
+    tailscale.enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
