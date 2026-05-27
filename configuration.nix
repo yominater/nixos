@@ -200,6 +200,8 @@ in
     wl-clipboard
     obsidian
     ungoogled-chromium
+    youtube-tui
+    openttd
   ];
 
   # Allow unfree packages
