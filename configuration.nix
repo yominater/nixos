@@ -7,19 +7,19 @@
 { config, pkgs, lib, ... }:
 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
+  #home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
 in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./power-save.nix
-      (import "${home-manager}/nixos")
+      #(import "${home-manager}/nixos")
     ];
   # The state version is required and should stay at the version you
   # originally installed.
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  #home-manager.useGlobalPkgs = true;
+  #home-manager.useUserPackages = true;
 
 
     programs.tmux = {
@@ -36,8 +36,8 @@ in
       shellAliases = {
         ll = "ls -l";
         gs = "git status";
-        safe-rebuild = "/home/yomi/Scripts/nixos-rebuild.sh";
-        safe-home-manager = "/home/yomi/Scripts/home-manager-rebuild.sh";
+        safe-rebuild = "/home/yomi/.scripts/nixos-rebuild.sh";
+        safe-home-manager = "/home/yomi/.scripts/home-manager-rebuild.sh";
       };
     };
     programs.git = {
@@ -88,12 +88,6 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-    options = "caps:escape_shifted_capslock";
-  };
 
   services.keyd = {
   enable = true;
@@ -244,7 +238,7 @@ in
 
   # Set core usage
   nix.settings.max-jobs = 1;
-  nix.settings.cores = 3;
+  nix.settings.cores = 1;
 
   # Automatic Garbage Collection
   nix.gc = {
@@ -256,5 +250,7 @@ in
   };
   nix.settings.auto-optimise-store = true;
   nix.settings.experimental-features = "nix-command flakes"; # for home-manager flake
+
+  networking.modemmanager.enable = false;
 }
 
