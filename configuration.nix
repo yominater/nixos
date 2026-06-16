@@ -94,7 +94,7 @@ in
 
 
   services.keyd = {
-  enable = false;
+  enable = true;
 
   keyboards.default = {
     settings = {
