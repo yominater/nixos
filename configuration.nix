@@ -53,6 +53,10 @@ in
       localNetworkGameTransfers.openFirewall = false;
     };
 
+    environment.variables = {
+      EDITOR="nvim";
+    };
+
 
 
   # Bootloader.
@@ -196,6 +200,7 @@ in
     ungoogled-chromium
     youtube-tui
     openttd
+    waypipe
   ];
 
   # Allow unfree packages
