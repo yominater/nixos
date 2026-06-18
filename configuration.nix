@@ -32,6 +32,7 @@ in
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
+        set -x EDITOR nvim
       '';
       shellAliases = {
         ll = "ls -l";
