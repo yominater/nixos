@@ -203,6 +203,7 @@ in
     openttd
     waypipe
     playerctl
+    (mpv.override {scripts = [mpvScripts.mpris];})
   ];
 
   # Allow unfree packages
