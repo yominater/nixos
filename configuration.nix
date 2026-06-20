@@ -202,6 +202,7 @@ in
     youtube-tui
     openttd
     waypipe
+    playerctl
   ];
 
   # Allow unfree packages
