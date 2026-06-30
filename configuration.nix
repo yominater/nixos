@@ -163,6 +163,10 @@ in
 
   ];
 
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -206,9 +210,6 @@ in
     (mpv.override {scripts = [mpvScripts.mpris];})
   ];
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -232,6 +233,28 @@ in
   };
 
   zramSwap.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
 
 
   # This value determines the NixOS release from which the default
@@ -259,6 +282,5 @@ in
   nix.settings.auto-optimise-store = true;
   nix.settings.experimental-features = "nix-command flakes"; # for home-manager flake
 
-  networking.modemmanager.enable = false;
 }
 
