@@ -208,6 +208,7 @@ in
     waypipe
     playerctl
     (mpv.override {scripts = [mpvScripts.mpris];})
+    thunar
   ];
 
   # List services that you want to enable:
