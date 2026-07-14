@@ -12,7 +12,6 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
       ./power-save.nix
       #(import "${home-manager}/nixos")
     ];
@@ -20,6 +19,7 @@ in
   # originally installed.
   #home-manager.useGlobalPkgs = true;
   #home-manager.useUserPackages = true;
+
 
 
     programs.tmux = {
@@ -63,7 +63,7 @@ in
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_7_0;
+
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -154,6 +154,8 @@ in
     gcc.cc.lib
     zlib
     libffi
+    libGL xorg.libX11 xorg.libXrandr
+    xorg.libXi libxkbcommon wayland wayland-protocols
   ];
 
   fonts.packages = with pkgs; [
@@ -209,7 +211,9 @@ in
     playerctl
     (mpv.override {scripts = [mpvScripts.mpris];})
     thunar
+    stress-ng
   ];
+
 
   # List services that you want to enable:
 
@@ -282,7 +286,7 @@ in
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 1w";
+    options = "--delete-older-than 1w -d";
     persistent = true;
 
   };
