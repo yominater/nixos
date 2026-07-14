@@ -58,12 +58,11 @@ in
       EDITOR="nvim";
     };
 
-
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -96,7 +95,6 @@ in
 
   services.keyd = {
   enable = true;
-
   keyboards.default = {
     settings = {
       main = {
@@ -104,7 +102,7 @@ in
       };
     };
   };
-  };
+  }; # keyd
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -138,14 +136,11 @@ in
     description = "NixOS";
     extraGroups = [ "networkmanager" "wheel" "yomi"];
     packages = with pkgs; [
-      tree-sitter
+      tree-sitter # for neovim
     ];
     home = "/home/yomi";
     shell = pkgs.fish;
   };
-
-  # Install firefox.
-  programs.firefox.enable = false;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -162,7 +157,6 @@ in
     ubuntu-sans
     ubuntu-sans-mono
     nerd-fonts.ubuntu
-
   ];
 
 
@@ -215,8 +209,6 @@ in
   ];
 
 
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
@@ -238,6 +230,7 @@ in
   };
 
   zramSwap.enable = true;
+  systemd.oomd.enable = true;
 
   hardware.bluetooth = {
     enable = true;
@@ -278,20 +271,24 @@ in
 
   environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
 
+  nix = {
+
   # Set core usage
-  nix.settings.max-jobs = 1;
-  nix.settings.cores = 1;
+    settings.max-jobs = 1;
+    settings.cores = 1;
 
   # Automatic Garbage Collection
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 1w -d";
-    persistent = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 1w -d";
+      persistent = true;
+    };
 
-  };
-  nix.settings.auto-optimise-store = true;
-  nix.settings.experimental-features = "nix-command flakes"; # for home-manager flake
+    settings.auto-optimise-store = true;
+    settings.experimental-features = "nix-command flakes"; # for home-manager flake
 
+    channel.enable = false;
+    };
 }
 
