@@ -50,8 +50,8 @@ in
       };
     };
     programs.steam = {
-      enable = false;
-      localNetworkGameTransfers.openFirewall = false;
+      enable = true;
+      localNetworkGameTransfers.openFirewall = true;
     };
 
     environment.variables = {
@@ -235,7 +235,7 @@ in
   systemd.oomd.enable = true;
 
   hardware.bluetooth = {
-    enable = true;
+    enable = false;
     powerOnBoot = true;
     settings = {
       General = {
