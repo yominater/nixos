@@ -200,7 +200,6 @@ in
     sof-firmware
     wl-clipboard
     obsidian
-    ungoogled-chromium
     youtube-tui
     openttd
     waypipe
@@ -209,6 +208,9 @@ in
     thunar
     stress-ng
   ];
+
+
+
 
 
   # Enable the OpenSSH daemon.
@@ -261,6 +263,13 @@ in
       auth include login
     '';
   };
+
+  programs.dconf.enable = true;
+
+
+#  services.journald.extraConfig = [
+#    "Storage=volatile\nRuntimeMaxUse=64M"
+#    ];
 
 
   # This value determines the NixOS release from which the default
