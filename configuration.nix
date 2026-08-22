@@ -173,6 +173,9 @@ in
     neovim
     vim
     btop
+    lm_sensors
+    pciutils
+    usbutils
     wget
     tmux
     libnotify
