@@ -230,6 +230,10 @@ in
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
+  networking.hosts = {
+    "100.99.228.21" = [ "uptime.home" "immich.home" "uptime.home" ];
+  };
+
   # For Hyprland
   hardware.graphics = {
   enable = true;
