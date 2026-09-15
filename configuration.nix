@@ -211,6 +211,7 @@ in
     thunar
     stress-ng
     nmap
+    quickshell
   ];
 
 
