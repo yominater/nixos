@@ -210,6 +210,7 @@ in
     (mpv.override {scripts = [mpvScripts.mpris];})
     thunar
     stress-ng
+    nmap
   ];
 
 
