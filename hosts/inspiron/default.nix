@@ -4,6 +4,7 @@
   _module.args.device = "inspiron";
 
   imports = [
+    ./configuration.nix
     ./hardware.nix
 
     # shared relatives
