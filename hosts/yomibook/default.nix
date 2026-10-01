@@ -10,6 +10,8 @@
 
     # shared relatives
     "${inputs.self}/modules/power-save.nix"
+    "${inputs.self}/modules/common.nix"
+    "${inputs.self}/modules/environment.nix"
     ];
 
 }

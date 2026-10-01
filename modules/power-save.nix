@@ -5,6 +5,8 @@
 }: {
   environment.systemPackages = with pkgs; [ powertop ];
 
+  powerManagement.cpuFreqGovernor = "ondemand";
+
   boot = {
     kernelParams = ["pcie_aspm.policy=powersave"];
 #    extraModprobeConfig = ''

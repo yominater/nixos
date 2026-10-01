@@ -26,5 +26,9 @@
         safe.directory = "/etc/nixos";
       };
     };
+
+  environment.variables = {
+    EDITOR="nvim";
+  };
 	
 }

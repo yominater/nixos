@@ -21,41 +21,11 @@ in
 
 
 
-    programs.tmux = {
-      enable = true;
-      extraConfig = ''
-        set -g mouse on
-      '';
-    };
-    programs.fish = {
-      enable = true;
-      interactiveShellInit = ''
-        set fish_greeting # Disable greeting
-        set -x EDITOR nvim
-      '';
-      shellAliases = {
-        ll = "ls -l";
-        gs = "git status";
-        safe-rebuild = "/home/yomi/.scripts/nixos-rebuild.sh";
-        safe-home-manager = "/home/yomi/.scripts/home-manager-rebuild.sh";
-      };
-    };
-    programs.git = {
-      enable = true;
-      config = {
-        user.email = "alexandertrains4@gmail.com";
-        user.name = "yominater";
-        safe.directory = "/etc/nixos";
-      };
-    };
     programs.steam = {
       enable = true;
       localNetworkGameTransfers.openFirewall = true;
     };
 
-    environment.variables = {
-      EDITOR="nvim";
-    };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -64,33 +34,6 @@ in
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   networking.hostName = "yomibook"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
 
   services.keyd = {
   enable = true;
@@ -129,17 +72,6 @@ in
 
   users.groups.yomi = { };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.yomi = {
-    isNormalUser = true;
-    description = "NixOS";
-    extraGroups = [ "networkmanager" "wheel" "yomi"];
-    packages = with pkgs; [
-      tree-sitter # for neovim
-    ];
-    home = "/home/yomi";
-    shell = pkgs.fish;
-  };
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -211,11 +143,7 @@ in
     stress-ng
     nmap
     python3
-    sl
   ];
-
-
-
 
 
   # Enable the OpenSSH daemon.
