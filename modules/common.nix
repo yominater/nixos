@@ -38,4 +38,20 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  services.journald.extraConfig = "SystemMaxUse=500M";
+
+  environment.systemPackages = with pkgs; [
+    fd
+    htop
+    btop
+    python3
+    unzip
+    vim
+    wget
+    which
+    whois
+
+
+  ];
+
 }
