@@ -35,6 +35,20 @@ in
 
   networking.hostName = "yomibook"; # Define your hostname.
 
+  # hibernate
+
+  powerManagement.enable = true;
+  boot.resumeDevice = "/dev/disk/by-uuid/526c4dbe-7f56-4313-a544-624773a72a3b";
+  boot.kernelParams = [
+    "resume=/dev/disk/by-uuid/526c4dbe-7f56-4313-a544-624773a72a3b"
+    "mem_sleep_default"
+    ];
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30m";
+    SuspendState = "mem";
+  };
+
+
   services.keyd = {
   enable = true;
   keyboards.default = {
@@ -132,7 +146,7 @@ in
     ranger
     rofi
     sof-firmware
-    wl-clipboard
+    wl-clipboard wayclip
     obsidian
     youtube-tui
     openttd
