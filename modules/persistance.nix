@@ -20,6 +20,8 @@
         "Downloads"
         "Music"
         "Pictures"
+        "pictures"
+        "images"
         "Documents"
         "Videos"
         ".config/home-manager"
