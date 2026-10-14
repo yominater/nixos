@@ -15,11 +15,41 @@
 
   networking.hostName = "thinkpad"; # Define your hostname.
 
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  services.upower.enable = true;
+  services = {
+    tailscale.enable = true;
+  };
+
+
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  services.throttled.enable = lib.mkDefault true;
+
+  services.fstrim.enable = lib.mkDefault true;
+
+  users.mutableUsers = false;
+
+  # Virtual machine stuff
+
+#  users.users.nixosvmtest.isNormalUser = true;
+#  users.users.nixosvmtest.initialPassword = "test";
+#  users.users.nixosvmtest.extraGroups = [ "wheel" ];
+#
+#  users.groups.nixosvmtest = {};
+#  users.users.nixosvmtest.group = "nixosvmtest";
+#  virtualisation = {
+#    diskSize = 8192;
+#  };
+#  virtualisation.vmVariant = {
+#    virtualisation = {
+#      memorySize = 4096;
+#      cores = 3;
+#    };
+#  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -39,6 +69,7 @@
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
+  #services.displayManager.sddm.enable = true;
   services.desktopManager.gnome.enable = true;
   
 
@@ -67,16 +98,38 @@
     packages = with pkgs; [
       tree
     ];
+    hashedPasswordFile = "/persistent/etc/passwords/yomiHash";
   };
+  users.users.root = {
+    hashedPasswordFile = "/persistent/etc/passwords/rootHash";
+  };
+
 
   # programs.firefox.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
     wget
+    obsidian
+    xwayland-satellite
+    brightnessctl
+    wl-clipboard
   ];
+
+  programs = {
+    niri.enable = true;
+  };
+
+  #services = {
+  #  fprintd.enable = true;
+  #};
+
+  #security.pam.services = {
+  #  sudo.fprintAuth = true;
+  #  polkit-1.fprintAuth = true;
+  #};
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

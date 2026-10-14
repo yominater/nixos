@@ -10,23 +10,39 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
+  boot.resumeDevice = "/dev/disk/by-uuid/1381a725-d001-4e0b-bd58-4c38e4572029";
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.initrd.systemd.enable = true;
 
-        boot.initrd.systemd = {
-        services.impermance-btrfs-rolling-root = {
+      boot.initrd.systemd = {
+        extraBin = {
+          # "mkfs.ext4" = "${pkgs.e2fsprogs}/bin/mkfs.ext4";
+          "mkdir" = "${pkgs.coreutils}/bin/mkdir";
+          "date" = "${pkgs.coreutils}/bin/date";
+          "stat" = "${pkgs.coreutils}/bin/stat";
+          "mv" = "${pkgs.coreutils}/bin/mv";
+          "find" = "${pkgs.findutils}/bin/find";
+          "btrfs" = "${pkgs.btrfs-progs}/bin/btrfs";
+          mountpoint = "${pkgs.util-linux}/bin/mountpoint";
+          # mount & umount already exist
+        }; # NOTE: path = [...]; doesnt work for initrd, use full paths in your script or extraBin
+
+        services.impermence-btrfs-rolling-root = {
           description = "Archiving existing BTRFS root subvolume and creating a fresh one";
           # Specify dependencies explicitly
-          unitConfig.DefaultDependencies = false;
+          unitConfig.DefaultDependencies = "no";
+
           # The script needs to run to completion before this service is done
           serviceConfig = {
             Type = "oneshot";
             # NOTE: to be able to see errors in your script do this
-            # StandardOutput = "journal+console";
-            # StandardError = "journal+console";
+            StandardOutput = "journal+console";
+            StandardError = "journal+console";
           };
+
           # This service is required for boot to succeed
-          requiredBy = ["initrd.target"];
+          wantedBy = ["initrd.target"];
           # Should complete before any file systems are mounted
           before = ["sysroot.mount"];
 
@@ -37,45 +53,63 @@
           after = [
             "initrd-root-device.target"
             # Allow hibernation to resume before trying to alter any data
-            "local-fs-pre.target"
+            "systemd-hibernate-resume.service"
           ];
 
           # The body of the script. Make your changes to data here
           script = ''
-            mkdir /btrfs_tmp
-            mount /dev/root_vg/root /btrfs_tmp
-            if [[ -e /btrfs_tmp/root ]]; then
-                mkdir -p /btrfs_tmp/old_roots
-                timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-                mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-            fi
+           set -euo pipefail
 
-            delete_subvolume_recursively() {
-                IFS=$'\n'
-                for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                    delete_subvolume_recursively "/btrfs_tmp/$i"
-                done
-                btrfs subvolume delete "$1"
-            }
-
-            for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-                delete_subvolume_recursively "$i"
-            done
-
-            btrfs subvolume create /btrfs_tmp/root
+           mkdir -p /btrfs_tmp
+           if mountpoint -q /btrfs_tmp; then
             umount /btrfs_tmp
+           fi
+
+           mount /dev/nvme0n1p2 /btrfs_tmp
+
+           if [[ -e /btrfs_tmp/root ]]; then
+               mkdir -p /btrfs_tmp/old_roots
+               timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+               mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+           fi
+
+           delete_subvolume_recursively() {
+               IFS=$'\n'
+               for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                   delete_subvolume_recursively "/btrfs_tmp/$i"
+               done
+               btrfs subvolume delete "$1"
+           }
+
+
+           if [[ -d /btrfs_tmp/old_roots ]]; then
+             for i in $(find /btrfs_tmp/old_roots -mindepth 1 -maxdepth 1 -mtime +30); do
+               delete_subvolume_recursively "$i"
+             done
+           fi
+
+           btrfs subvolume create /btrfs_tmp/root
+           umount /btrfs_tmp
+           rmdir /btrfs_tmp
           '';
+#script = ''
+#  set -euo pipefail
+#
+#  mkdir -p /btrfs_tmp
+#
+#  if mountpoint -q /btrfs_tmp; then
+#    umount /btrfs_tmp
+#  fi
+#
+#  mount /dev/nvme0n1p2 /btrfs_tmp
+#
+#  echo "Root device mounted successfully"
+#  btrfs subvolume list /btrfs_tmp
+#
+#  umount /btrfs_tmp
+#  rmdir /btrfs_tmp
+#'';
         };
-        extraBin = {
-          # "mkfs.ext4" = "${pkgs.e2fsprogs}/bin/mkfs.ext4";
-          "mkdir" = "${pkgs.coreutils}/bin/mkdir";
-          "date" = "${pkgs.coreutils}/bin/date";
-          "stat" = "${pkgs.coreutils}/bin/stat";
-          "mv" = "${pkgs.coreutils}/bin/mv";
-          "find" = "${pkgs.findutils}/bin/find";
-          "btrfs" = "${pkgs.btrfs-progs}/bin/btrfs";
-          # mount & umount already exist
-        }; # NOTE: path = [...]; doesnt work for initrd, use full paths in your script or extraBin
       };
 
 
@@ -111,8 +145,23 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/1381a725-d001-4e0b-bd58-4c38e4572029"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  environment.systemPackages = [ pkgs.cifs-utils ];
+  fileSystems."/samba" = {
+    device = "//100.67.37.50/shared";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100" "nofail"];
+  };
+
+
 }

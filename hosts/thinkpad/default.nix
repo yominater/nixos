@@ -13,7 +13,7 @@
     "${inputs.self}/modules/common.nix"
     "${inputs.self}/modules/environment.nix"
     "${inputs.self}/modules/persistance.nix"
-    "${inputs.self}/modules/firefox.nix"
+    #"${inputs.self}/modules/firefox.nix"
     ];
 
 }
