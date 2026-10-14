@@ -5,10 +5,10 @@
 }: {
   environment.systemPackages = with pkgs; [ powertop ];
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  #powerManagement.cpuFreqGovernor = "ondemand";
 
   boot = {
-    kernelParams = ["pcie_aspm.policy=powersave"];
+    kernelParams = ["pcie_aspm.policy=ondemand"];
 #    extraModprobeConfig = ''
 #      options snd_hda_intel power_save=1
 #      options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0

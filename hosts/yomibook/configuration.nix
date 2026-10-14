@@ -38,6 +38,7 @@ in
   # hibernate
 
   powerManagement.enable = true;
+
   boot.resumeDevice = "/dev/disk/by-uuid/526c4dbe-7f56-4313-a544-624773a72a3b";
   boot.kernelParams = [
     "resume=/dev/disk/by-uuid/526c4dbe-7f56-4313-a544-624773a72a3b"
@@ -47,6 +48,17 @@ in
     HibernateDelaySec = "30m";
     SuspendState = "mem";
   };
+
+#  systemd.user.services.my-cool-user-service = {
+#  enable = true;
+#  after = [ "network.target" ];
+#  wantedBy = [ "default.target" ];
+#  description = "My Cool User Service";
+#  serviceConfig = {
+#      Type = "simple";
+#      ExecStart = ''/my/cool/user/service'';
+#  };
+#};
 
 
   services.keyd = {
@@ -85,7 +97,6 @@ in
 
 
   users.groups.yomi = { };
-
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -185,7 +196,11 @@ in
   };
 
   zramSwap.enable = true;
-  systemd.oomd.enable = true;
+  systemd.oomd = {
+    enable = true;
+    enableUserSlices = true;
+    enableSystemSlice = true;
+  };
 
   hardware.bluetooth = {
     enable = false;
