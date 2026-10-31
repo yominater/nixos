@@ -44,12 +44,12 @@
 #  virtualisation = {
 #    diskSize = 8192;
 #  };
-#  virtualisation.vmVariant = {
-#    virtualisation = {
-#      memorySize = 4096;
-#      cores = 3;
-#    };
-#  };
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize = 4096;
+      cores = 3;
+    };
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -116,10 +116,23 @@
     xwayland-satellite
     brightnessctl
     wl-clipboard
+    yazi
+    rofi
   ];
 
   programs = {
     niri.enable = true;
+  };
+
+    # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true; # if not already enabled
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment the following
+    #jack.enable = true;
   };
 
   #services = {

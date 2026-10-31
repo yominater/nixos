@@ -4,6 +4,7 @@
     hideMounts = true;
     directories = [
       "/root/.config/nvim"
+      "/root/.local/share/nvim"
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/nixos"
@@ -13,8 +14,9 @@
       "/var/lib/systemd/backlight"
       "/var/lib/upower"
       "/var/lib/tailscale"
+      "/var/db/sudo/lectured" # for the sudo policy message
       "/etc/NetworkManager/system-connections"
-      "/etc/nixos"
+      "/etc/nixos" # for keeping my nixos config intact
       { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
     ];
     files = [
@@ -23,7 +25,6 @@
     ];
     users.yomi = {
       directories = [
-        "."
         "Downloads"
         "Music"
         "Pictures"
@@ -32,6 +33,7 @@
         "Documents"
         "Videos"
         "Awesome_vault_2"
+	"Projects"
         ".config/obsidian"
         ".config/home-manager"
         ".config/nvim"
@@ -41,24 +43,26 @@
         ".config/waybar"
         ".config/wayle"
         ".config/mozilla"
-        ".mozilla"
         ".config/dconf"
         ".config/noctalia"
         ".config/libreoffice"
+	".config/gtk-3.0" # for mouse
+	".config/gtk-4.0" # configuration
+	".config/nix"
+        ".mozilla"
         ".cache/nix"
 	".local/share/nvim"
-	      ".config/nix"
-	      ".local/share/fish"
-	      ".local/share/Steam"
-	      ".local/share/Trash"
-	      ".steam"
+        ".local/share/fish"
+	".local/share/Steam"
+        ".local/share/Trash"
+        ".steam"
         { directory = ".ssh"; mode = "0700"; }
         { directory = ".nixops"; mode = "0700"; }
         { directory = ".local/share/keyrings"; mode = "0700"; }
         ".local/share/direnv"
       ];
       files = [
-        ".screenrc"
+#        ".screenrc"
         ".cache/noctalia/shell-state.json"
       ];
     };

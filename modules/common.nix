@@ -3,7 +3,7 @@
   users.users.yomi = {
     isNormalUser = true;
     description = "yominater";
-    extraGroups = ["docker" "networkmanager" "wheel" "yomi"];
+    extraGroups = ["docker" "networkmanager" "wheel" "yomi" "libvirtd"];
     packages = with pkgs; [
       tree-sitter # for neovim
     ];
@@ -50,6 +50,8 @@
     wget
     which
     whois
+    pavucontrol
+    yazi
 
 
   ];
