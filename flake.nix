@@ -17,12 +17,16 @@
           specialArgs = { inherit inputs self username impermanence; };
               modules = [
                 path
-
                 {
+		  networking.hostName = hostname;
                   nixpkgs.config.allowUnfree = true;
 		  nix.settings.experimental-features = "nix-command flakes";
 
                   }
+	              ./modules/environment.nix
+	              ./modules/common.nix
+                (./hosts + "/${hostname}" + /configuration.nix)
+                (./hosts + "/${hostname}" + /hardware.nix)
               ];
               };
           in

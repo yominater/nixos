@@ -4,11 +4,10 @@
   _module.args.device = "inspiron";
 
   imports = [
-    ./configuration.nix
-    ./hardware.nix
 
     # shared relatives
-    #"${inputs.self}/modules/power-save.nix"
+    "${inputs.self}/modules/common.nix"
+    "${inputs.self}/modules/environment.nix"
     ];
 
 }
