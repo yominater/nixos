@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -32,6 +32,14 @@
   services.fstrim.enable = lib.mkDefault true;
 
   users.mutableUsers = false;
+
+  # Allow btop to see GPU without running as root
+  security.wrappers.btop = {
+      owner = "root";
+      group = "root";
+      source = "${pkgs.btop}/bin/btop";
+      capabilities = "cap_perfmon=ep";
+  };
 
   # Virtual machine stuff
 
@@ -188,6 +196,5 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
 
