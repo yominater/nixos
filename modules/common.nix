@@ -52,6 +52,8 @@
     whois
     pavucontrol
     yazi
+    wl-clipboard
+    cliphist
 
 
   ];

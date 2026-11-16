@@ -126,6 +126,7 @@
     wl-clipboard
     yazi
     rofi
+    vlc
   ];
 
   programs = {
@@ -134,6 +135,7 @@
 
     # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
   security.rtkit.enable = true;
+  security.sudo.extraConfig = "Defaults pwfeedback";
   services.pipewire = {
     enable = true; # if not already enabled
     alsa.enable = true;

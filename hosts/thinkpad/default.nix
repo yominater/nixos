@@ -14,7 +14,7 @@
     "${inputs.self}/modules/environment.nix"
     "${inputs.self}/modules/persistance.nix"
     "${inputs.self}/modules/guest.nix"
-    "${inputs.self}/modules/steam.nix"
+#    "${inputs.self}/modules/steam.nix"
     "${inputs.self}/modules/system.nix"
     "${inputs.self}/modules/virtualization.nix"
 
