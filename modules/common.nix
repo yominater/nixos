@@ -54,7 +54,8 @@
     yazi
     wl-clipboard
     cliphist
-
+    yazi
+    ntfs3g
 
   ];
 

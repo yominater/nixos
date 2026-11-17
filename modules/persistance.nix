@@ -3,8 +3,6 @@
     enable = true;  # NB: Defaults to true, not needed
     hideMounts = true;
     directories = [
-      "/root/.config/nvim"
-      "/root/.local/share/nvim"
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/nixos"
@@ -23,6 +21,13 @@
       "/etc/machine-id"
       { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
     ];
+    users.root = {
+      directories = [
+        ".ssh"
+        ".config/nvim"
+        ".local/share/nvim"
+      ];
+      };
     users.yomi = {
       directories = [
         "Downloads"
@@ -33,7 +38,7 @@
         "Documents"
         "Videos"
         "Awesome_vault_2"
-	"Projects"
+        "Projects"
         ".config/obsidian"
         ".config/home-manager"
         ".config/nvim"
@@ -46,14 +51,14 @@
         ".config/dconf"
         ".config/noctalia"
         ".config/libreoffice"
-	".config/gtk-3.0" # for mouse
-	".config/gtk-4.0" # configuration
-	".config/nix"
+        ".config/gtk-3.0" # for mouse
+        ".config/gtk-4.0" # configuration
+        ".config/nix"
         ".mozilla"
         ".cache/nix"
-	".local/share/nvim"
+        ".local/share/nvim"
         ".local/share/fish"
-	".local/share/Steam"
+        ".local/share/Steam"
         ".local/share/Trash"
         ".steam"
         { directory = ".ssh"; mode = "0700"; }

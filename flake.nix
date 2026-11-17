@@ -34,6 +34,7 @@
             yomibook = mkHost "yomibook" ./hosts/yomibook;
             inspiron  = mkHost "inspiron"  ./hosts/inspiron;
             thinkpad  = mkHost "thinkpad"  ./hosts/thinkpad;
+            desktop   = mkHost "desktop"  ./hosts/desktop;
           };
 
     };
